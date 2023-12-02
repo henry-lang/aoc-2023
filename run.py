@@ -11,6 +11,7 @@ in_file = argv[2]
 with open(in_file) as file:
     solve_fn = getattr(__import__(f'day{day}'), f'part_{part}')
     start = time()
-    solve_fn(file.read())
+    ans = solve_fn(file.read())
     end = time()
+    print(f'answer: {ans}')
     print(f'took: {(end - start) * 1000}ms')
