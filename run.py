@@ -14,4 +14,4 @@ with open(in_file) as file:
     ans = solve_fn(file.read())
     end = time()
     print(f'answer: {ans}')
-    print(f'took: {(end - start) * 1000}ms')
+    print(f'took: {round((end - start) * 1000, 2)}ms')
