@@ -23,16 +23,15 @@ def part_a(input: str):
 def part_b(input: str):
     lines = input.split('\n')
     total = 0
-    for i, l in enumerate(lines):
+    for l in lines:
         take = l[l.find(':') + 2:].split('; ')
         bag = {'red': 0, 'green': 0, 'blue': 0}
         for t in take:
             elems = t.split(', ')
             color = {'red': 0, 'green': 0, 'blue': 0}
             for e in elems:
-                e = e.split()
-                q = int(e[0])
-                c = e[1]
+                q, c = e.split()
+                q = int(q)
                 color[c] += q
             bag['red'] = max(bag['red'], color['red'])
             bag['green'] = max(bag['green'], color['green'])
