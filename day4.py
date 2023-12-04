@@ -2,10 +2,10 @@ import functools
 
 
 def part_a(input: str):
-    lines = input.split('\n')
+    lines = input.split("\n")
     total = 0
     for l in lines:
-        lhs, rhs = map(lambda s: [x for x in s.split()], l.split('|'))
+        lhs, rhs = map(lambda s: [x for x in s.split()], l.split("|"))
         lhs = lhs[2:]
         lhs, rhs = set([int(x) for x in lhs]), [int(x) for x in rhs]
         value = 0
@@ -18,6 +18,7 @@ def part_a(input: str):
         total += value
     return total
 
+
 def cards_of_list(matches: list[int]):
     @functools.cache
     def cards(index: int):
@@ -28,13 +29,14 @@ def cards_of_list(matches: list[int]):
 
     return cards
 
+
 def part_b(input: str):
-    lines = input.split('\n')
-    
+    lines = input.split("\n")
+
     matches = []
 
     for l in lines:
-        lhs, rhs = map(lambda s: [x for x in s.split()], l.split('|'))
+        lhs, rhs = map(lambda s: [x for x in s.split()], l.split("|"))
         lhs = lhs[2:]
         lhs, rhs = set([int(x) for x in lhs]), [int(x) for x in rhs]
         total = 0
@@ -42,7 +44,7 @@ def part_b(input: str):
             if n in lhs:
                 total += 1
         matches.append(total)
-    
+
     total = 0
     cards = cards_of_list(matches)
     for i in range(len(matches)):
