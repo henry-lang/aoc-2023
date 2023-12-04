@@ -18,7 +18,7 @@ def part_a(input: str):
         total += value
     return total
 
-def cards_of_list(matches):
+def cards_of_list(matches: list[int]):
     @functools.cache
     def cards(index: int):
         total = 1
