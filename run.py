@@ -1,14 +1,17 @@
 #!/usr/bin/env python3
 
-from sys import argv
+import argparse
 from time import time
 
-arg = argv[1]
-day = arg[:-1]
-part = arg[-1]
+parser = argparse.ArgumentParser(prog='Advent of Code Runner')
+parser.add_argument('day')
+parser.add_argument('input_file')
+args = parser.parse_args()
 
-in_file = argv[2]
-with open(in_file) as file:
+day = args.day[:-1]
+part = args.day[-1]
+
+with open(args.input_file) as file:
     solve_fn = getattr(__import__(f'day{day}'), f'part_{part}')
     contents = file.read()
     start = time()
