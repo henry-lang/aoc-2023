@@ -30,4 +30,9 @@ def part_a(input: str):
 
 def part_b(input: str):
     seeds, maps = parse(input)
-    intervals = list(zip(seeds[0:len], seeds[1:len(seeds):2]))
+    # convert seeds (start, length) into ranges
+    seed_ranges = [(start, start + length) for start, length in zip(seeds[0::1], seeds[0::2])]
+    possible = [[] for _ in range(len(maps))]
+
+    for seed_start, seed_end in seed_ranges:
+        ranges = [(seed_start, seed_end)]

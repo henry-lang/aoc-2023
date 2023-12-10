@@ -13,6 +13,20 @@ offsets = {
 }
 
 
+# grid, (start r, start c)
+def parse(input: str) -> tuple[list[str], tuple[int, int]]:
+    grid = input.split("\n")
+    sr = None
+    sc = None
+    for r, l in enumerate(grid):
+        for c, ch in enumerate(l):
+            if ch == "S":
+                sr, sc = r, c
+                break
+
+    return grid, (sr, sc)
+
+
 def can_move_to(grid: list[str], visited: set[tuple[int, int]], r: int, c: int) -> bool:
     return (
         0 <= r < len(grid)
@@ -20,6 +34,7 @@ def can_move_to(grid: list[str], visited: set[tuple[int, int]], r: int, c: int) 
         and grid[r][c] != "."
         and not (r, c) in visited
     )
+
 
 def tube_length(
     grid: list[str], r: int, c: int, distance=0, visited: set = set()
@@ -33,29 +48,36 @@ def tube_length(
 
 
 def part_a(input: str):
-    grid = input.split("\n")
-
-    sr = None
-    sc = None
-    for r, l in enumerate(grid):
-        for c, ch in enumerate(l):
-            if ch == "S":
-                sr, sc = r, c
-                break
+    grid, (sr, sc) = parse(input)
 
     length = tube_length(grid, sr, sc)
     return length // 2
 
-def part_b(input: str):
-    grid = input.split("\n")
 
-    sr = None
-    sc = None
-    for r, l in enumerate(grid):
-        for c, ch in enumerate(l):
-            if ch == "S":
-                sr, sc = r, c
-                break
+def part_b(input: str):
+    grid, (sr, sc) = parse(input)
 
     visited = set()
     tube_length(grid, sr, sc, visited=visited)
+
+    crossings = [[] for _ in range(len(grid))]
+    for r in range(len(grid)):
+        crossings[r].append(0)
+        for c in range(1, len(grid[r])):
+            crossings[r].append(
+                crossings[r][c - 1]
+                + int(
+                    (r, c - 1) in visited
+                    and grid[r][c - 1] in ["S", "F", "7", "|"]
+                )
+            )
+
+    total = 0
+    for i, r in enumerate(crossings):
+        for j, c in enumerate(r):
+            if (i, j) in visited:
+                continue
+            if c % 2 == 1:
+                total += 1
+
+    return total
