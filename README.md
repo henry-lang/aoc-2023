@@ -1,6 +1,6 @@
 # Advent of Code 2023 Solutions
 
-My cursed runner file: ./run.py <day-number><part (a or b> <input-file>
+My cursed runner file: `./run.py <day-number-and-part> <input-file>` 
 
 For example,
 ```
