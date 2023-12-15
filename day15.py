@@ -1,5 +1,6 @@
 from collections import defaultdict
 
+
 def hash_str(label: str):
     n = 0
     for c in label:
@@ -12,15 +13,17 @@ def hash_str(label: str):
 
 
 def part_a(input: str):
-    codes = input.split(',')
+    codes = input.split(",")
     total = 0
 
     for code in codes:
         total += hash_str(code)
     return total
 
+
 # position, focal length
 Lens = tuple[int, int]
+
 
 class Box:
     next_pos: int
@@ -31,7 +34,6 @@ class Box:
         self.lenses = {}
 
     def insert(self, label: str, focal: int):
-        
         if label in self.lenses:
             self.lenses[label] = (self.lenses[label][0], focal)
         else:
@@ -46,21 +48,22 @@ class Box:
         lenses.sort(key=lambda x: x)
         return list(map(lambda l: l[1], lenses))
 
+
 def part_b(input: str):
-    codes = input.split(',')
+    codes = input.split(",")
     boxes: list[Box] = [Box() for _ in range(256)]
 
     for code in codes:
-        if code[-1] == '-':
+        if code[-1] == "-":
             label = code[:-1]
             hash = hash_str(label)
             boxes[hash].remove(label)
         else:
-            label, focal = code.split('=')
+            label, focal = code.split("=")
 
             hash = hash_str(label)
             boxes[hash].insert(label, int(focal))
-    
+
     total = 0
     for i, b in enumerate(boxes):
         lengths = b.get_ordered_lengths()
