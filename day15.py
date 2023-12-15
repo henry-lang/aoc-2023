@@ -66,8 +66,7 @@ def part_b(input: str):
 
     total = 0
     for i, b in enumerate(boxes):
-        lengths = b.get_ordered_lengths()
-        for p, l in enumerate(lengths):
+        for p, l in enumerate(b.get_ordered_lengths()):
             total += (i + 1) * (p + 1) * l
 
     return total
